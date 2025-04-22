@@ -19,10 +19,12 @@ void ulcrc_send_msg(int sockfd, const char *name, struct sockaddr_in to) {
   strcpy(msg.name, name);
 
   while(1) {
-    printf("%s>", msg.name);
-    memset(&msg, 0, sizeof(msg));
+    printf("%s> ", msg.name);
+    fflush(stdout);
+    memset(&msg.buf, 0, sizeof(msg.buf));
     fgets(msg.buf, sizeof(msg.buf), stdin);
     msg.buf[strcspn(msg.buf, "\n")] = '\0';
+    printf("\033[F\r\033[2K");
     msg.type = (strncmp(msg.buf, MSG_QUIT, sizeof(MSG_QUIT)) == 0) ? CLIENT_QUIT : CLIENT_CHAT;
 
     if(sendto(sockfd, &msg, sizeof(msg), 0, (struct sockaddr *)&to, sizeof(to)) < 0) {
@@ -54,9 +56,11 @@ void *ulcrc_recv_msg(void *arg) {
       perror("[ERROR] ulcrc_recv_chat/recvfrom()");
       exit(EXIT_FAILURE);
     }
-    printf("[INFO] %s: %s\n", msg.name, msg.buf);
+    printf("\r\033[2K");
+    printf("%s> %s\n", msg.name, msg.buf);
 
     if (msg.type == SERVER_QUIT) {
+      printf("[INFO] server has been terminated.\n");
       exit(EXIT_SUCCESS);
     }
   }

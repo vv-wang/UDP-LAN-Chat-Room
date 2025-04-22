@@ -12,7 +12,7 @@ linknode_t *ll_create() {
 void ll_insert(linknode_t *head, datatype_t data) {
   linknode_t *node;
 
-  node = (linknode_t)malloc(sizeof(linknode_t));
+  node = (linknode_t *)malloc(sizeof(linknode_t));
   if(!node) {
     perror("[ERROR] ll_insert/malloc()");
     return ;
@@ -33,7 +33,7 @@ int ll_find(linknode_t *head, datatype_t data) {
   else return 0;
 }
 
-void ll_delete(linknode_t *head, datatype_t data) {
+void ll_remove(linknode_t *head, datatype_t data) {
   linknode_t *p, *del;
 
   for(p = head->next; 

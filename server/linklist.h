@@ -13,6 +13,6 @@ typedef struct node {
 linknode_t *ll_create();
 void ll_insert(linknode_t *head, datatype_t data);
 int ll_find(linknode_t *head, datatype_t data);
-void ll_delete(linknode_t *head, datatype_t data);
+void ll_remove(linknode_t *head, datatype_t data);
 
 #endif

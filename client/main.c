@@ -21,9 +21,9 @@ int main(int argc, char *argv[]) {
   ulcrc_send_join(sockfd, argv[3], server_addr);
 
   pthread_t tid;
-  pthread_create(&tid, NULL, ulcrc_recv_chat, (void *)&sockfd);
+  pthread_create(&tid, NULL, ulcrc_recv_msg, (void *)&sockfd);
 
-  ulcrc_send_chat(sockfd, argv[3], server_addr);
+  ulcrc_send_msg(sockfd, argv[3], server_addr);
 
   return 0;
 }
